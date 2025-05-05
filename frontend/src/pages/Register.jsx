@@ -31,6 +31,7 @@ const Register = () => {
 
     const handleOtpSend = () => {
         const principalEmail = import.meta.env.VITE_PRINCIPAL_EMAIL; // Replace with the principal's email
+        setLoading(true); // Start loading
         const newOtp = generateOtp();
         setGeneratedOtp(newOtp);
 
@@ -46,10 +47,12 @@ const Register = () => {
             )
             .then(() => {
                 console.log("OTP sent to principal's email");
+                setLoading(false); // Stop loading
                 alert("OTP sent to principal's email");
                 setOtpSent(true);
             })
             .catch((error) => {
+                setLoading(false); // Stop loading
                 console.error("Error sending OTP:", error);
             });
     };
@@ -57,7 +60,7 @@ const Register = () => {
     const handleOtpVerify = () => {
         if (otp === generatedOtp) {
             console.log("OTP Verified");
-            alert("OTP Verified");
+            alert("OTP Verified,Now Click on Register Button");
             setOtpVerified(true);
         } else {
             alert("Invalid OTP");
@@ -114,7 +117,6 @@ const Register = () => {
             <MainBannerImage />
             <TextBlock heading={"Register"} content={""} />
             <div className="pl-5">
-                {loading && <div className="loader">Loading...</div>} {/* Loader */}
                 <form
                     onSubmit={handleSubmit}
                     className="space-y-4 w-1/2 mx-au ml-10 pl-10"
@@ -202,7 +204,7 @@ const Register = () => {
                                     <button
                                         type="button"
                                         onClick={handleOtpVerify}
-                                        className="block w-1/4 p-2 bg-green-700 text-white rounded cursor-pointer"
+                                        className="block w-1/2 md:w-1/4 p-2 bg-green-700 text-white rounded cursor-pointer"
                                     >
                                         Verify OTP
                                     </button>
@@ -211,6 +213,7 @@ const Register = () => {
                         </div>
                     )}
                     <div className="pl-1">
+                        {loading && <div className="loader">Loading...</div>} {/* Loader */}
                         <button
                             type="submit"
                             className="block w-full md:w-1/4 p-2 bg-green-700 text-white rounded cursor-pointer"

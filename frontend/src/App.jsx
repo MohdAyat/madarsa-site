@@ -10,6 +10,7 @@ import OtherLinks from "./components/OtherLinks.jsx"; // Create this component
 import Navbar from "./components/Navbar.jsx";
 import Committee from "./pages/Committee.jsx";
 import Admission from "./pages/Admission.jsx";
+import Syllabus from "./pages/Syllabus.jsx"; // Create this page
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
@@ -26,7 +27,8 @@ function App() {
           <Route path="/committee" element={<Committee />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/admission" element={<Admission />} />
+          <Route path="/syllabus" element={<Syllabus />} />
         </Routes>
         <OtherLinks></OtherLinks>
         <Footer></Footer>
