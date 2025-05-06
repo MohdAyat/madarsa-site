@@ -27,6 +27,7 @@ function App() {
           <Route path="/committee" element={<Committee />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/syllabus" element={<Syllabus />} />
         </Routes>

@@ -8,10 +8,25 @@ import cookieParser from "cookie-parser";
 // Initialize the app
 const app = express();
 
-app.use(cors({
+const corsOptions = {
+  origin: (origin, callback) => {
+      const allowedOrigins = [
+          'http://localhost:5173',
+          'https://madarsa-site.vercel.app'
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
   credentials: true,
-  origin: `http://localhost:5173`,
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
