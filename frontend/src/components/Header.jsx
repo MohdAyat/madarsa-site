@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext"; // Adjust the path as necessary
 import { CiFacebook,CiTwitter } from "react-icons/ci";
-// import { set } from "mongoose";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Header = () => {
   const {isLoggedIn , setIsLoggedIn , setUser, user} = useContext(AuthContext);
-  
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_USER_API_ENDPOINT}/logout`, {
@@ -20,10 +21,7 @@ const Header = () => {
         alert("Logout successful!");
         setIsLoggedIn(false);
         setUser(null); // Clear user data from context
-        // Optionally, update the context or redirect the user
-      } else {
-        alert("Logout failed. Please try again.");
-        console.error("Unexpected response during logout:", response);
+        navigate('/');
       }
     } catch (error) {
       alert("Logout failed. Please try again.");

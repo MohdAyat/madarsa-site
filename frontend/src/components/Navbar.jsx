@@ -16,7 +16,7 @@ const navItems = [
     subItems: [
       { label: "Admission", link: "/admission" },
       { label: "Syllabus", link: "/syllabus" },
-      { label: "Result", link: "/buildings" },
+      { label: "Result", link: "/" },
       // { label: "Library", link: "/buildings" },
     ],
    },

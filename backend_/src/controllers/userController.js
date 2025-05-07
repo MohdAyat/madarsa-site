@@ -17,8 +17,8 @@ async function generateAccessandRefreshToken(userid){
 // Register User
 export const registerUser = async (req,res) => {
     try {
-        // console.log("registerUser controller called");
-        // console.log("req.body in registerUser controller: ",req.body);
+        console.log("registerUser controller called");
+        console.log("req.body in registerUser controller: ",req.body);
         
         const { fullName, email, password, confirmPassword, city, state, country, role } = req.body;
 
@@ -55,7 +55,6 @@ export const registerUser = async (req,res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
             path: '/',
         }
         return res
@@ -94,7 +93,6 @@ export const loginUser = async (req,res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
             path: '/',
         }
 
@@ -118,7 +116,7 @@ export const logoutUser = async (req,res) => {
     
     const user = await User.findByIdAndUpdate(req.user._id,
         {
-          $set:{refreshToken : undefined}
+          $unset:{refreshToken : 1}
         },
         {
           new: true
@@ -131,7 +129,6 @@ export const logoutUser = async (req,res) => {
         httpOnly : true,
         secure: true,
         sameSite: "None",
-        domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
         path: '/',
     }
     

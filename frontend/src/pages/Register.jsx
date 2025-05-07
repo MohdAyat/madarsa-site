@@ -92,7 +92,7 @@ const Register = () => {
         setLoading(true); // Start loading
         try {
             const response = await axios.post(`${import.meta.env.VITE_USER_API_ENDPOINT}/register`, data, {withCredentials: true});
-            // console.log("in_register_response:  ", response);
+            console.log("in_register_response:  ", response);
 
             if (response.status === 200) {
                 const result = response.data;
@@ -101,8 +101,6 @@ const Register = () => {
                 setUser(result.user); // Assuming the backend sends user info
                 alert("Registered successfully!");
                 navigate("/");
-            } else {
-                console.error("Unexpected response:", response);
             }
         } catch (error) {
             console.error("Error during registration:", error);

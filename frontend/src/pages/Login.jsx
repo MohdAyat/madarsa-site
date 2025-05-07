@@ -14,32 +14,32 @@ const Login = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = {
-            email: formData.get("email"),
-            password: formData.get("password"),
-            role: formData.get("role"), // student or teacher
-        };
         setLoading(true); // Show loader
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_USER_API_ENDPOINT}/login`, data, {withCredentials: true});
 
+        try {
+            const formData = new FormData(e.target);
+            const response = await axios.post(`${import.meta.env.VITE_USER_API_ENDPOINT}/login`, 
+                {
+                email: formData.get("email"),
+                password: formData.get("password"),
+                role: formData.get("role"),
+                }
+                , {withCredentials: true});
+            console.log("in_login_response: ", response);
+            
             if (response.status === 200) {
-                const result = response.data;
-                // console.log("Success:", result);
                 setIsLoggedIn(true);
-                setUser(result.user); // Assuming the backend sends user info
+                setUser(response.data.user); // Assuming the backend sends user info
                 setLoading(false); // Hide loader
                 alert("Login successful!");
                 navigate("/");
                 // Handle successful login, e.g., update context or redirect
-            } else {
-                setLoading(false); // Hide loader
-                console.error("Unexpected response:", response);
             }
         } catch (error) {
-            setLoading(false); // Hide loader
-            console.error("Error during login:", error);
+            console.error('Login error:', error);
+            alert(error.response?.data?.message || 'Login failed');
+        } finally {
+            setLoading(false);
         }
     };
 
