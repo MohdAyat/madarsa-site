@@ -53,7 +53,10 @@ export const registerUser = async (req,res) => {
 
         const options = {
             httpOnly: true,
-            secure: false
+            secure: true,
+            sameSite: "None",
+            domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
+            path: '/',
         }
         return res
         .status(200)
@@ -89,7 +92,10 @@ export const loginUser = async (req,res) => {
         const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
         const options = {
             httpOnly: true,
-            secure: false
+            secure: true,
+            sameSite: "None",
+            domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
+            path: '/',
         }
 
         return res
@@ -108,7 +114,7 @@ export const loginUser = async (req,res) => {
 };
 
 export const logoutUser = async (req,res) => {
-    // console.log("req.user in logoutuser controller: ",req.user);
+    console.log("req.user in logoutuser controller: ",req.user);
     
     const user = await User.findByIdAndUpdate(req.user._id,
         {
@@ -123,7 +129,10 @@ export const logoutUser = async (req,res) => {
     }
     const options = {
         httpOnly : true,
-        secure: false
+        secure: true,
+        sameSite: "None",
+        domain: 'https://madarsa-site.onrender.com', // Replace with your actual backend domain
+        path: '/',
     }
     
     res.status(201)
